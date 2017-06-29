@@ -1,6 +1,6 @@
-
 # Make the Word Cloud #1
 ## amueller의 wordcloud package를 이용한 mask를 활용한 wordcloud 만들기! 
+![윤동주시인의 워드클라우드](https://github.com/kimyoungjin06/wordcloud/blob/master/Yun_Dongju.png "참 쉽죠? :)")
 
 #### 참고:
 #### [1] https://github.com/amueller/word_cloud
