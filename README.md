@@ -43,7 +43,7 @@ f.close()
 
 
 ```python
-icon = Image.open(icon_path)
+icon = Image.open(icon_path).convert("RGBA")
 mask = Image.new("RGB", icon.size, (255,255,255))
 mask.paste(icon,icon)
 mask = np.array(mask)
