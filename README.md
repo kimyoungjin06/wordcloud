@@ -65,3 +65,54 @@ wc.to_file("Yun_Dongju.png")
 
 
 ### Additional Tip. [2]에 가면, 올린이의 다양한 작품들을 볼 수 있다. 그리고 해당하는 코드들은 [3]에서 볼 수 있다. [1]에서는 wordcloud의 기본적 사용법들에 대해 알려준다. 참고하기를
+
+
+# Make Word Cloud with color mask and word frequency
+
+## Add coloring 
+
+## Data structure is json
+
+```json
+# Structure of word_dict
+{
+word1 : count,
+word2 : count,
+...
+word_N : count
+}
+```
+
+# Full code
+
+```python
+# IMPORT PACKAGES
+import numpy as np
+import random
+from PIL import Image
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+from palettable.colorbrewer.qualitative import Dark2_8
+
+# FONT, ICON
+font = "a엄마의편지B"
+font_path = "%s.ttf" % font
+
+icon = "korea2"
+icon_path = "%s.png" % icon
+
+# Word Cloud with colored mask
+colored_mask = np.array(Image.open(icon_path))
+
+wc = WordCloud(font_path=font_path, background_color="white", max_words=20000, mask=colored_mask,
+               max_font_size=300, random_state=42)
+
+image_colors = ImageColorGenerator(colored_mask)
+image_colors.default_color = [0.6,0.6,0.6] # Important!!! at 2018.07.07
+
+# Generate word cloud
+wc.generate_from_frequencies(word_dict)
+wc.recolor(None,image_colors)
+wc.to_file("output.png")
+```
+
+![colored_mask](https://github.com/kimyoungjin06/wordcloud/blob/master/colored_mask.png "참 쉽죠? :)")
