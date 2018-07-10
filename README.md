@@ -93,20 +93,24 @@ from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from palettable.colorbrewer.qualitative import Dark2_8
 
-# FONT, ICON
+# FONT, ICON, MASK
 font = "a엄마의편지B"
 font_path = "%s.ttf" % font
 
 icon = "korea2"
 icon_path = "%s.png" % icon
 
-# Word Cloud with colored mask
-colored_mask = np.array(Image.open(icon_path))
+icon = Image.open(icon_path).convert("RGBA")
+mask = Image.new("RGB", icon.size, (255,255,255))
+mask.paste(icon,icon)
+mask = np.array(mask)
 
-wc = WordCloud(font_path=font_path, background_color="white", max_words=20000, mask=colored_mask,
+# Word Cloud with colored mask
+wc = WordCloud(font_path=font_path, background_color="white", max_words=20000, mask=mask,
                max_font_size=300, random_state=42)
 
-image_colors = ImageColorGenerator(colored_mask)
+coloring = np.array(Image.open(icon_path))
+image_colors = ImageColorGenerator(coloring)
 image_colors.default_color = [0.6,0.6,0.6] # Important!!! at 2018.07.07
 
 # Generate word cloud
